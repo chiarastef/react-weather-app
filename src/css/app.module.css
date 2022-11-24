@@ -1,0 +1,14 @@
+.container {
+  background-color: #ececec;
+  width: 95%;
+  max-width: 850px;
+  padding: 30px 20px;
+  border-radius: 5px;
+  margin: 50px auto;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 40px;
+  }
+}
