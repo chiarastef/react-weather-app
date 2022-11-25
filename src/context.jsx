@@ -8,6 +8,8 @@ function AppProvider({ children }) {
   const [coords, setCoords] = React.useState({ lon: "", lat: "" });
   const [gotCoords, setGotCoords] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
+  const [cityInfo, setCityInfo] = React.useState({ city: "", country: "" });
+  const [weatherInfo, setWeatherInfo] = React.useState([]);
 
   // Get coordinates from city name (Geocoding API from openweathermap.org)
   React.useEffect(() => {
@@ -19,9 +21,13 @@ function AppProvider({ children }) {
           import.meta.env.VITE_API_KEY
         }`
       )
-      .then((response) =>
-        setCoords({ lon: response.data[0].lon, lat: response.data[0].lat })
-      )
+      .then((response) => {
+        setCityInfo({
+          city: response.data[0].name,
+          country: response.data[0].country,
+        });
+        setCoords({ lon: response.data[0].lon, lat: response.data[0].lat });
+      })
       .then(setGotCoords(true));
   }, [query]);
 
@@ -32,12 +38,14 @@ function AppProvider({ children }) {
         .get(
           `http://www.7timer.info/bin/api.pl?lon=${coords.lon}&lat=${coords.lat}&product=civillight&output=json`
         )
-        .then((response) => console.log(response.data))
+        .then((response) => setWeatherInfo(response.data.dataseries))
         .then(setLoaded(true));
   }, [coords]);
 
   return (
-    <AppContext.Provider value={{ setQuery }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ loaded, setQuery, cityInfo, weatherInfo }}>
+      {children}
+    </AppContext.Provider>
   );
 }
 

@@ -20,9 +20,11 @@
 - CSS custom properties
 - JavaScript
 - React
-
+- Geocoding API from [openweathermap.org](https://openweathermap.org/)
+- [7timer.info API](http://www.7timer.info/doc.php)
 - [Flaticon](https://www.flaticon.com/) for the favicon
 - [React Spinners](https://www.npmjs.com/package/react-spinners)
+- [React Animated Weather](https://www.npmjs.com/package/react-animated-weather)
 
 ## Author
 
