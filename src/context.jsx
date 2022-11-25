@@ -9,7 +9,6 @@ function AppProvider({ children }) {
   const [gotCoords, setGotCoords] = React.useState(false);
   const [cityInfo, setCityInfo] = React.useState({ city: "", country: "" });
   const [weatherInfo, setWeatherInfo] = React.useState([]);
-
   const [error, setError] = React.useState(false);
 
   // Get coordinates from city name (Geocoding API from openweathermap.org)
@@ -58,6 +57,25 @@ function AppProvider({ children }) {
           console.log(error);
         });
   }, [coords]);
+
+  function getLocation(lon, lat) {
+    axios
+      .get(
+        `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${
+          import.meta.env.VITE_API_KEY
+        }`
+      )
+      .then((response) => {
+        setCityInfo({
+          city: response.data[0].name,
+          country: response.data[0].country,
+        });
+      })
+      .catch((error) => {
+        setError(true);
+        console.log(error);
+      });
+  }
 
   // Format weather info
   function formatWeatherInfo(weather) {
@@ -120,10 +138,12 @@ function AppProvider({ children }) {
     <AppContext.Provider
       value={{
         setQuery,
+        setCoords,
         cityInfo,
         weatherInfo,
         formatWeatherInfo,
         error,
+        getLocation,
       }}
     >
       {children}

@@ -4,13 +4,26 @@ import { useGlobalContext } from "../context";
 import style from "../css/weathersearch.module.css";
 
 function WeatherSearch() {
-  const { setQuery, error } = useGlobalContext();
+  const { setQuery, setCoords, getLocation } = useGlobalContext();
+
   const [search, setSearch] = React.useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
     setQuery(search);
     setSearch("");
+  }
+
+  function getCoords() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lon = position.coords.longitude;
+      const lat = position.coords.latitude;
+      getLocation(lon, lat);
+      setCoords({
+        lon,
+        lat,
+      });
+    });
   }
 
   return (
@@ -24,7 +37,11 @@ function WeatherSearch() {
         onChange={(e) => setSearch(e.target.value)}
       />
       <div className={style.buttons}>
-        <button type="button" className={`${style.btn} ${style.positionBtn}`}>
+        <button
+          type="button"
+          onClick={getCoords}
+          className={`${style.btn} ${style.positionBtn}`}
+        >
           current position
         </button>
         <button type="submit" className={`${style.btn} ${style.searchBtn}`}>
