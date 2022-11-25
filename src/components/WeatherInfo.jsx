@@ -17,8 +17,6 @@ function WeatherInfo() {
   };
   const date = new Date().toLocaleString(undefined, options);
 
-  const weather = "CLEAR_DAY";
-
   return (
     <div className={style.weatherContainer}>
       <div className={style.dateAndLocation}>
@@ -37,23 +35,18 @@ function WeatherInfo() {
       <div className={style.currentWeather}>
         <div className={style.icon}>
           <ReactAnimatedWeather
-            icon={weather}
+            icon={weatherInfo[0].icon}
             color={"#9fd3c7"}
             size={90}
             animate={true}
           />
         </div>
         <div className={style.currentWeatherInfo}>
-          {/* Show weather info after variable is not undefined anymore */}
-          {weatherInfo[0] && (
-            <>
-              <div>{formatWeatherInfo(weatherInfo[0].weather)}</div>
-              <div className={style.temperature}>
-                <div>min: {weatherInfo[0].temp2m.min}°C</div>
-                <div>max: {weatherInfo[0].temp2m.max}°C</div>
-              </div>
-            </>
-          )}
+          <div>{formatWeatherInfo(weatherInfo[0].weather)}</div>
+          <div className={style.temperature}>
+            <div>min: {weatherInfo[0].temp2m.min}°C</div>
+            <div>max: {weatherInfo[0].temp2m.max}°C</div>
+          </div>
         </div>
       </div>
       {/* Forecast next 6 days */}

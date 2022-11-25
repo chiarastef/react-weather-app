@@ -7,13 +7,14 @@ function AppProvider({ children }) {
   const [query, setQuery] = React.useState("rome");
   const [coords, setCoords] = React.useState({ lon: "", lat: "" });
   const [gotCoords, setGotCoords] = React.useState(false);
-  const [loaded, setLoaded] = React.useState(false);
   const [cityInfo, setCityInfo] = React.useState({ city: "", country: "" });
   const [weatherInfo, setWeatherInfo] = React.useState([]);
 
+  const [error, setError] = React.useState(false);
+
   // Get coordinates from city name (Geocoding API from openweathermap.org)
   React.useEffect(() => {
-    setLoaded(false);
+    setError(false);
     setWeatherInfo([]);
 
     axios
@@ -29,7 +30,11 @@ function AppProvider({ children }) {
         });
         setCoords({ lon: response.data[0].lon, lat: response.data[0].lat });
       })
-      .then(setGotCoords(true));
+      .then(setGotCoords(true))
+      .catch((error) => {
+        setError(true);
+        console.log(error);
+      });
   }, [query]);
 
   // Get weather data
@@ -39,8 +44,19 @@ function AppProvider({ children }) {
         .get(
           `https://www.7timer.info/bin/api.pl?lon=${coords.lon}&lat=${coords.lat}&product=civillight&output=json`
         )
-        .then((response) => setWeatherInfo(response.data.dataseries))
-        .then(setLoaded(true));
+        .then((response) => {
+          // Add weather icon to weatherInfo array
+          const data = response.data.dataseries;
+          const formattedData = data.map((item) => {
+            const icon = formatWeatherIcon(item.weather);
+            return { ...item, icon: icon };
+          });
+          setWeatherInfo(formattedData);
+        })
+        .catch((error) => {
+          setError(true);
+          console.log(error);
+        });
   }, [coords]);
 
   // Format weather info
@@ -67,9 +83,48 @@ function AppProvider({ children }) {
     }
   }
 
+  // Format weather icon
+  function formatWeatherIcon(weather) {
+    switch (weather) {
+      case "clear":
+        return "CLEAR_DAY";
+      case "partlycloudy":
+        return "PARTLY_CLOUDY_DAY";
+      case "mcloudy":
+      case "cloudy":
+      case "verycloudy":
+        return "CLOUDY";
+      case "rain":
+      case "lightrain":
+      case "occasionalshowers":
+      case "isolatedshowers":
+      case "thunderstorm":
+      case "thunderstormpossible":
+        return "RAIN";
+      case "lightsnow":
+        return "SLEET";
+      case "snow":
+      case "mixed":
+        return "SNOW";
+      case "windy":
+        return "WIND";
+      case "foggy":
+        return "FOG";
+    }
+  }
+
+  // CLEAR_NIGHT;
+  // PARTLY_CLOUDY_NIGHT;
+
   return (
     <AppContext.Provider
-      value={{ loaded, setQuery, cityInfo, weatherInfo, formatWeatherInfo }}
+      value={{
+        setQuery,
+        cityInfo,
+        weatherInfo,
+        formatWeatherInfo,
+        error,
+      }}
     >
       {children}
     </AppContext.Provider>

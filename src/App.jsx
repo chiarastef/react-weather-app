@@ -8,12 +8,22 @@ import WeatherInfo from "./components/WeatherInfo";
 import style from "./css/app.module.css";
 
 function App() {
-  const { loaded } = useGlobalContext();
+  const { weatherInfo, error } = useGlobalContext();
+
+  if (error) {
+    return (
+      <div className={style.container}>
+        <WeatherSearch />
+        <div className={style.error}>No results found</div>
+      </div>
+    );
+  }
 
   return (
     <div className={style.container}>
       <WeatherSearch />
-      {loaded ? (
+      {/* Show component once data is not undefined */}
+      {weatherInfo[0] ? (
         <WeatherInfo />
       ) : (
         <ClipLoader

@@ -4,7 +4,7 @@ import { useGlobalContext } from "../context";
 import style from "../css/weathersearch.module.css";
 
 function WeatherSearch() {
-  const { setQuery } = useGlobalContext();
+  const { setQuery, error } = useGlobalContext();
   const [search, setSearch] = React.useState("");
 
   function handleSubmit(e) {

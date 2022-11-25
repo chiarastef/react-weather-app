@@ -7,6 +7,10 @@
   margin: 50px auto;
 }
 
+.error {
+  margin: 15px 0 50px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     padding: 40px;
