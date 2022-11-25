@@ -1,6 +1,7 @@
 import { useGlobalContext } from "../context";
 import ReactAnimatedWeather from "react-animated-weather";
 
+import WeatherForecast from "./WeatherForecast";
 import style from "../css/weatherinfo.module.css";
 
 function WeatherInfo() {
@@ -50,6 +51,11 @@ function WeatherInfo() {
         </div>
       </div>
       {/* Forecast next 6 days */}
+      <div className={style.forecastContainer}>
+        {weatherInfo.slice(1).map((item, index) => {
+          return <WeatherForecast key={index} info={item} />;
+        })}
+      </div>
     </div>
   );
 }

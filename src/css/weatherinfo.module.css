@@ -35,6 +35,19 @@
   margin-top: 6px;
 }
 
+.forecastContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  text-align: center;
+  margin-top: 15px;
+}
+
+@media screen and (min-width: 576px) {
+  .forecastContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media screen and (min-width: 768px) {
   .weatherContainer {
     padding: 10px 20px;
