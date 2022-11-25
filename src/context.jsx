@@ -17,7 +17,7 @@ function AppProvider({ children }) {
 
     axios
       .get(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${
+        `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${
           import.meta.env.VITE_API_KEY
         }`
       )
@@ -36,7 +36,7 @@ function AppProvider({ children }) {
     gotCoords &&
       axios
         .get(
-          `http://www.7timer.info/bin/api.pl?lon=${coords.lon}&lat=${coords.lat}&product=civillight&output=json`
+          `https://www.7timer.info/bin/api.pl?lon=${coords.lon}&lat=${coords.lat}&product=civillight&output=json`
         )
         .then((response) => setWeatherInfo(response.data.dataseries))
         .then(setLoaded(true));
