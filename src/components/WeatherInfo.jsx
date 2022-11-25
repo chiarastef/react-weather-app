@@ -4,7 +4,7 @@ import ReactAnimatedWeather from "react-animated-weather";
 import style from "../css/weatherinfo.module.css";
 
 function WeatherInfo() {
-  const { cityInfo, weatherInfo } = useGlobalContext();
+  const { cityInfo, weatherInfo, formatWeatherInfo } = useGlobalContext();
 
   // Format date and time
   const options = {
@@ -44,9 +44,10 @@ function WeatherInfo() {
           />
         </div>
         <div className={style.currentWeatherInfo}>
+          {/* Show weather info after variable is not undefined anymore */}
           {weatherInfo[0] && (
             <>
-              <div>{weatherInfo[0].weather}</div>
+              <div>{formatWeatherInfo(weatherInfo[0].weather)}</div>
               <div className={style.temperature}>
                 <div>min: {weatherInfo[0].temp2m.min}°C</div>
                 <div>max: {weatherInfo[0].temp2m.max}°C</div>

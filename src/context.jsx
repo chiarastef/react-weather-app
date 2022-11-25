@@ -14,6 +14,7 @@ function AppProvider({ children }) {
   // Get coordinates from city name (Geocoding API from openweathermap.org)
   React.useEffect(() => {
     setLoaded(false);
+    setWeatherInfo([]);
 
     axios
       .get(
@@ -42,8 +43,34 @@ function AppProvider({ children }) {
         .then(setLoaded(true));
   }, [coords]);
 
+  // Format weather info
+  function formatWeatherInfo(weather) {
+    switch (weather) {
+      case "mcloudy":
+        return "cloudy";
+      case "partlycloudy":
+        return "party cloudy";
+      case "verycloudy":
+        return "very cloudy";
+      case "lightrain":
+        return "light rain";
+      case "occasionalshowers":
+        return "occasional showers";
+      case "isolatedshowers":
+        return "isolated showers";
+      case "lightsnow":
+        return "light snow";
+      case "thunderstormpossible":
+        return "thunderstorm possible";
+      default:
+        return weather;
+    }
+  }
+
   return (
-    <AppContext.Provider value={{ loaded, setQuery, cityInfo, weatherInfo }}>
+    <AppContext.Provider
+      value={{ loaded, setQuery, cityInfo, weatherInfo, formatWeatherInfo }}
+    >
       {children}
     </AppContext.Provider>
   );
