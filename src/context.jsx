@@ -17,7 +17,6 @@ function AppProvider({ children }) {
     // Run effect only if it's not current position
     if (!isCurrentPosition) {
       setError({ show: false, msg: "" });
-      setWeatherInfo([]);
 
       axios
         .get(
@@ -46,6 +45,8 @@ function AppProvider({ children }) {
 
   // Get weather data using coordinates (.7timer.info API)
   React.useEffect(() => {
+    setWeatherInfo([]);
+
     // Call API only once coords is not undefined
     gotCoords &&
       axios

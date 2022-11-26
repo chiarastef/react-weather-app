@@ -1,25 +1,31 @@
 # React Weather App
 
+Weather app created with React and ViteJS.
+
 ## Link
 
-<!-- - [Project URL]() (hosted on Netlify) -->
+- [Project URL](https://react-weather-forecast-website.netlify.app/) (hosted on Netlify)
 
 ## Screenshot
 
-<!-- <img src="./screenshots/weather-app-preview.png" alt="Weather app preview" width="600px"> -->
+<!-- <img src="./screenshots/react-weather-app-preview.png" alt="React weather app preview" width="600px"> -->
 
 ## Project
 
-<!-- Users should be able to:
+Users should be able to:
 
-- -->
+- Check the current weather and the forecast of the city entered in the input field
+- Check the current weather and the forecast of the user's current location
 
 ## Built with
 
 - Semantic HTML5 markup
 - CSS custom properties
+- [CSS Modules](https://github.com/css-modules/css-modules)
 - JavaScript
 - React
+- [Vite](https://vitejs.dev/)
+- [axios](https://axios-http.com/)
 - Geocoding API from [openweathermap.org](https://openweathermap.org/)
 - [7timer.info API](http://www.7timer.info/doc.php)
 - [Flaticon](https://www.flaticon.com/) for the favicon
