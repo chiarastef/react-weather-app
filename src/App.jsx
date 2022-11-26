@@ -10,11 +10,11 @@ import style from "./css/app.module.css";
 function App() {
   const { weatherInfo, error } = useGlobalContext();
 
-  if (error) {
+  if (error.show) {
     return (
       <div className={style.container}>
         <WeatherSearch />
-        <div className={style.error}>No results found</div>
+        <div className={style.error}>{error.msg}</div>
       </div>
     );
   }

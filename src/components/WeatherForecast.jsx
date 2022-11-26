@@ -3,9 +3,9 @@ import ReactAnimatedWeather from "react-animated-weather";
 import style from "../css/weatherforecast.module.css";
 
 function WeatherForecast(props) {
+  // Format date
   const date = String(props.info.date);
-
-  const formattedDate = date.replace(/(\d{4})(\d{2})(\d{2})/, "$3-$2");
+  const formattedDate = date.replace(/(\d{4})(\d{2})(\d{2})/, "$3/$2");
 
   return (
     <div className={style.forecastElement}>
@@ -13,7 +13,7 @@ function WeatherForecast(props) {
       <ReactAnimatedWeather
         icon={props.info.icon}
         color={"#9fd3c7"}
-        size={90}
+        size={60}
         animate={true}
       />
       <div className={style.temperature}>

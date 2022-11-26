@@ -4,7 +4,8 @@ import { useGlobalContext } from "../context";
 import style from "../css/weathersearch.module.css";
 
 function WeatherSearch() {
-  const { setQuery, setCoords, getLocation } = useGlobalContext();
+  const { setQuery, setCoords, getLocation, setIsCurrentPosition } =
+    useGlobalContext();
 
   const [search, setSearch] = React.useState("");
 
@@ -12,6 +13,7 @@ function WeatherSearch() {
     e.preventDefault();
     setQuery(search);
     setSearch("");
+    setIsCurrentPosition(false);
   }
 
   function getCoords() {

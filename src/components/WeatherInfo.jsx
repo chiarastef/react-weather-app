@@ -21,7 +21,7 @@ function WeatherInfo() {
   return (
     <div className={style.weatherContainer}>
       <div className={style.dateAndLocation}>
-        {/* Last updated date */}
+        {/* Last updated date and time */}
         <div className={style.date}>
           <span>Last updated:</span>
           <br />
@@ -38,7 +38,7 @@ function WeatherInfo() {
           <ReactAnimatedWeather
             icon={weatherInfo[0].icon}
             color={"#9fd3c7"}
-            size={90}
+            size={80}
             animate={true}
           />
         </div>
@@ -52,7 +52,7 @@ function WeatherInfo() {
       </div>
       {/* Forecast next 6 days */}
       <div className={style.forecastContainer}>
-        {weatherInfo.slice(1).map((item, index) => {
+        {weatherInfo.slice(1, -1).map((item, index) => {
           return <WeatherForecast key={index} info={item} />;
         })}
       </div>

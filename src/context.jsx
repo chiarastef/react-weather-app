@@ -9,35 +9,44 @@ function AppProvider({ children }) {
   const [gotCoords, setGotCoords] = React.useState(false);
   const [cityInfo, setCityInfo] = React.useState({ city: "", country: "" });
   const [weatherInfo, setWeatherInfo] = React.useState([]);
-  const [error, setError] = React.useState(false);
+  const [error, setError] = React.useState({ show: false, msg: "" });
+  const [isCurrentPosition, setIsCurrentPosition] = React.useState(false);
 
   // Get coordinates from city name (Geocoding API from openweathermap.org)
   React.useEffect(() => {
-    setError(false);
-    setWeatherInfo([]);
+    // Run effect only if it's not current position
+    if (!isCurrentPosition) {
+      setError({ show: false, msg: "" });
+      setWeatherInfo([]);
 
-    axios
-      .get(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${
-          import.meta.env.VITE_API_KEY
-        }`
-      )
-      .then((response) => {
-        setCityInfo({
-          city: response.data[0].name,
-          country: response.data[0].country,
+      axios
+        .get(
+          `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${
+            import.meta.env.VITE_API_KEY
+          }`
+        )
+        .then((response) => {
+          setCityInfo({
+            city: response.data[0].name,
+            country: response.data[0].country,
+          });
+          setCoords({ lon: response.data[0].lon, lat: response.data[0].lat });
+        })
+        .then(setGotCoords(true))
+        .catch((error) => {
+          if (query.length < 1) {
+            setError({ show: true, msg: "Please, enter a city" });
+          } else {
+            setError({ show: true, msg: "No results found" });
+          }
+          console.log(error);
         });
-        setCoords({ lon: response.data[0].lon, lat: response.data[0].lat });
-      })
-      .then(setGotCoords(true))
-      .catch((error) => {
-        setError(true);
-        console.log(error);
-      });
+    }
   }, [query]);
 
-  // Get weather data
+  // Get weather data using coordinates (.7timer.info API)
   React.useEffect(() => {
+    // Call API only once coords is not undefined
     gotCoords &&
       axios
         .get(
@@ -53,11 +62,12 @@ function AppProvider({ children }) {
           setWeatherInfo(formattedData);
         })
         .catch((error) => {
-          setError(true);
+          setError({ show: true, msg: "No results found" });
           console.log(error);
         });
   }, [coords]);
 
+  // Get city and country for coordinates (Geocoding API from openweathermap.org)
   function getLocation(lon, lat) {
     axios
       .get(
@@ -70,9 +80,11 @@ function AppProvider({ children }) {
           city: response.data[0].name,
           country: response.data[0].country,
         });
+        setQuery(response.data[0].name);
+        setIsCurrentPosition(true);
       })
       .catch((error) => {
-        setError(true);
+        setError({ show: true, msg: "No results found" });
         console.log(error);
       });
   }
@@ -81,6 +93,7 @@ function AppProvider({ children }) {
   function formatWeatherInfo(weather) {
     switch (weather) {
       case "mcloudy":
+      case "pcloudy":
         return "cloudy";
       case "partlycloudy":
         return "party cloudy";
@@ -91,6 +104,7 @@ function AppProvider({ children }) {
       case "occasionalshowers":
         return "occasional showers";
       case "isolatedshowers":
+      case "ishower":
         return "isolated showers";
       case "lightsnow":
         return "light snow";
@@ -109,6 +123,7 @@ function AppProvider({ children }) {
       case "partlycloudy":
         return "PARTLY_CLOUDY_DAY";
       case "mcloudy":
+      case "pcloudy":
       case "cloudy":
       case "verycloudy":
         return "CLOUDY";
@@ -116,6 +131,7 @@ function AppProvider({ children }) {
       case "lightrain":
       case "occasionalshowers":
       case "isolatedshowers":
+      case "ishower":
       case "thunderstorm":
       case "thunderstormpossible":
         return "RAIN";
@@ -128,6 +144,8 @@ function AppProvider({ children }) {
         return "WIND";
       case "foggy":
         return "FOG";
+      default:
+        return;
     }
   }
 
@@ -144,6 +162,7 @@ function AppProvider({ children }) {
         formatWeatherInfo,
         error,
         getLocation,
+        setIsCurrentPosition,
       }}
     >
       {children}

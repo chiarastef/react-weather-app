@@ -1,4 +1,6 @@
 .forecastElement {
+  flex-basis: 50%;
+  font-size: 15px;
   margin-top: 18px;
 }
 
@@ -8,4 +10,10 @@
 
 .temperature {
   margin-top: 8px;
+}
+
+@media screen and (min-width: 576px) {
+  .forecastElement {
+    flex-basis: 20%;
+  }
 }

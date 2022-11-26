@@ -27,7 +27,6 @@
 }
 
 .currentWeatherInfo {
-  font-size: 17px;
   font-weight: 500;
 }
 
@@ -36,16 +35,11 @@
 }
 
 .forecastContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   text-align: center;
   margin-top: 15px;
-}
-
-@media screen and (min-width: 576px) {
-  .forecastContainer {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -64,11 +58,7 @@
   }
 
   .city {
-    font-size: 38px;
-  }
-
-  .icon canvas {
-    width: 120px;
+    font-size: 34px;
   }
 
   .currentWeather {
@@ -78,7 +68,6 @@
   }
 
   .currentWeatherInfo {
-    font-size: 18px;
     margin-left: 60px;
   }
 }
