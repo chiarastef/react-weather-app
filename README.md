@@ -8,14 +8,15 @@ Weather app created with React and ViteJS.
 
 ## Screenshot
 
-<!-- <img src="./screenshots/react-weather-app-preview.png" alt="React weather app preview" width="600px"> -->
+<img src="./screenshots/react-weather-app-preview.png" alt="React weather app preview" width="600px">
 
 ## Project
 
 Users should be able to:
 
-- Check the current weather and the forecast of the city entered in the input field
-- Check the current weather and the forecast of the user's current location
+- Check the current weather and forecast of the city entered in the input field
+- Check the current weather and forecast of the user's current location
+- See the local date and time of the searched location
 
 ## Built with
 
@@ -28,6 +29,7 @@ Users should be able to:
 - [axios](https://axios-http.com/)
 - Geocoding API from [openweathermap.org](https://openweathermap.org/)
 - [7timer.info API](http://www.7timer.info/doc.php)
+- Timezone API from [ipgeolocation.io](https://ipgeolocation.io/)
 - [Flaticon](https://www.flaticon.com/) for the favicon
 - [React Spinners](https://www.npmjs.com/package/react-spinners)
 - [React Animated Weather](https://www.npmjs.com/package/react-animated-weather)

@@ -17,7 +17,8 @@ function WeatherForecast(props) {
         animate={true}
       />
       <div className={style.temperature}>
-        {props.info.temp2m.min}°C - {props.info.temp2m.max}°C
+        <span className={style.minTemp}>{props.info.temp2m.min}°</span>{" "}
+        {props.info.temp2m.max}°
       </div>
     </div>
   );

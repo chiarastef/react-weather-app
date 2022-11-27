@@ -10,6 +10,7 @@ import style from "./css/app.module.css";
 function App() {
   const { weatherInfo, error } = useGlobalContext();
 
+  // Show error message if error occurs
   if (error.show) {
     return (
       <div className={style.container}>

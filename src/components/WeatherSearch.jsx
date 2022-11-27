@@ -9,6 +9,7 @@ function WeatherSearch() {
 
   const [search, setSearch] = React.useState("");
 
+  // Launch city search
   function handleSubmit(e) {
     e.preventDefault();
     setQuery(search);
@@ -16,6 +17,7 @@ function WeatherSearch() {
     setIsCurrentPosition(false);
   }
 
+  // Get user's coordinates
   function getCoords() {
     navigator.geolocation.getCurrentPosition((position) => {
       const lon = position.coords.longitude;
