@@ -33,32 +33,17 @@ function WeatherInfo() {
     timeOptions
   );
 
+  // Format icons for night time
   function formatNightIcons(icon) {
     if (currentHour < 7 || currentHour > 18) {
-      if (weatherInfo[0].icon === "CLEAR_DAY") {
+      if (icon === "CLEAR_DAY") {
         return "CLEAR_NIGHT";
-      } else if (weatherInfo[0].icon === "PARTLY_CLOUDY_DAY") {
+      } else if (icon === "PARTLY_CLOUDY_DAY") {
         return "PARTLY_CLOUDY_NIGHT";
       }
     }
-    return weatherInfo[0].icon;
+    return icon;
   }
-
-  // Change icons for night time
-  // let icon = "";
-  // if (currentHour < 7 || currentHour > 18) {
-  //   if (weatherInfo[0].icon === "CLEAR_DAY") {
-  //     icon = "CLEAR_NIGHT";
-  //     console.log(icon);
-  //   } else if (weatherInfo[0].icon === "PARTLY_CLOUDY_DAY") {
-  //     icon = "PARTLY_CLOUDY_NIGHT";
-  //     console.log(icon);
-  //   } else {
-  //     icon = weatherInfo[0].icon;
-  //   }
-  // } else {
-  //   icon = weatherInfo[0].icon;
-  // }
 
   return (
     <div className={style.weatherContainer}>

@@ -11,7 +11,7 @@ function AppProvider({ children }) {
   const [weatherInfo, setWeatherInfo] = React.useState([]);
   const [isCurrentPosition, setIsCurrentPosition] = React.useState(false);
   const [currentDateTime, setCurrentDateTime] = React.useState("");
-  const [currentHour, setCurrentHour] = React.useState(undefined);
+  const [currentHour, setCurrentHour] = React.useState(null);
   const [error, setError] = React.useState({ show: false, msg: "" });
 
   // Get coordinates from city name (Geocoding API from openweathermap.org)
@@ -87,7 +87,7 @@ function AppProvider({ children }) {
         });
   }, [coords]);
 
-  // Get city and country from coordinates of user (Geocoding API from openweathermap.org)
+  // Get city and country from user's coordinates (Geocoding API from openweathermap.org)
   function getLocation(lon, lat) {
     axios
       .get(
@@ -121,7 +121,10 @@ function AppProvider({ children }) {
         return "very cloudy";
       case "lightrain":
         return "light rain";
+      case "tsrain":
+        return "rain";
       case "occasionalshowers":
+      case "oshower":
         return "occasional showers";
       case "isolatedshowers":
       case "ishower":
@@ -145,11 +148,13 @@ function AppProvider({ children }) {
       case "mcloudy":
       case "pcloudy":
       case "cloudy":
-      case "verycloudy":
+      case "humid":
         return "CLOUDY";
       case "rain":
+      case "tsrain":
       case "lightrain":
       case "occasionalshowers":
+      case "oshower":
       case "isolatedshowers":
       case "ishower":
       case "thunderstorm":
@@ -159,6 +164,7 @@ function AppProvider({ children }) {
         return "SLEET";
       case "snow":
       case "mixed":
+      case "rainsnow":
         return "SNOW";
       case "windy":
         return "WIND";
