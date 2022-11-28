@@ -1,6 +1,6 @@
 # React Weather App
 
-Weather app created with React and ViteJS.
+Weather app built with React and ViteJS.
 
 ## Link
 
